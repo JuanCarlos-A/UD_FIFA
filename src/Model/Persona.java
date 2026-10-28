@@ -1,22 +1,27 @@
 package Model;
 
+//Seccion - Importaciones
+import java.time.LocalDate;
+import java.time.Period;
+
 public class Persona
 {
     // Seccion - Atributos
-    private String name;
+    private String idPersona ;
+    private String nombre;
     private String country ;
-    private String id ;
     private boolean is_alive = true;
+    private LocalDate fechaNacimiento;
 
     //Seccion - Metodos
-    public String getName()
+    public String getNombre()
     {
-        return this.name;
+        return this.nombre;
     }
 
-    public void setName(String name)
+    public void setNombre(String nombre)
     {
-        this.name = name;
+        this.nombre = nombre;
     }
 
     public String getCountry()
@@ -29,14 +34,31 @@ public class Persona
         this.country=newCountry;
     }
 
+    public int getEdad()
+    {
+        return Period.between(
+                fechaNacimiento,
+                LocalDate.now()
+        ).getYears();
+    }
+
     @Override
     public String toString()
     {
         return "Persona{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
+                "nombre='" + nombre + '\'' +
+                ", id='" + idPersona + '\'' +
                 ", is_alive=" + is_alive +
                 '}';
+    }
+
+    // Seccion - Constructor
+    public Persona(String idPersona, String nombre, String country, LocalDate nacimiento)
+    {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.country = country;
+        this.fechaNacimiento = nacimiento;
     }
 
 

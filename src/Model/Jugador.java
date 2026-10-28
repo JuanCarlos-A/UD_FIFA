@@ -1,23 +1,15 @@
 package Model;
 
-//Seccion - Importaciones
-import java.time.Period;
 import java.time.LocalDate;
 
 public class Jugador extends Persona {
-    public int dorsal;
+    public String idJugador;
     public Posicion posicion;
-    private LocalDate nacimiento;
+    public int dorsal;
 
-    public int getEdad()
-    {
-        return Period.between(
-                nacimiento,
-                LocalDate.now()
-        ).getYears();
-
+    public Jugador(String idPersona, String nombre, String country, LocalDate nacimiento) {
+        super(idPersona, nombre, country, nacimiento);
     }
-
 
     @Override
     public String toString() {
@@ -25,13 +17,6 @@ public class Jugador extends Persona {
                 "dorsal=" + dorsal +
                 "} "
                 + super.toString();
-    }
-
-
-    public Jugador(String nombre, LocalDate nacimiento)
-    {
-        super.setName(nombre);
-        this.nacimiento = nacimiento;
     }
 
 }

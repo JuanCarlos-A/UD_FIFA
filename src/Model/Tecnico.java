@@ -3,18 +3,23 @@ package Model;
 public class Tecnico extends Persona
 {
     // Seccion - Atributos
-    private String club;
+    private String nombreClub;
 
     // Seccion - Metodos
-    public String getClub()
+    public String getNombreClub()
     {
-        return this.club;
+        return this.nombreClub;
+    }
+
+    public void setNombreClub(String nuevoCLub)
+    {
+        this.nombreClub = nuevoCLub;
     }
 
     @Override
     public String toString() {
         return "Tecnico{" +
-                "club='" + getClub() + '\'' +
+                "club='" + getNombreClub() + '\'' +
                 "} " + super.toString();
     }
 }

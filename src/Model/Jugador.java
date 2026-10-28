@@ -9,11 +9,20 @@ public class Jugador extends Persona {
     private int dorsal;
 
     // Seccion - Constructor
-    public Jugador(String nombre, String pais, LocalDate fechaNacimiento, String idJugador, Posicion posicion, int dorsal) {
-        super( nombre, pais, fechaNacimiento);
+    public Jugador(String idPersona, String nombre, String pais, LocalDate fechaNacimiento, String idJugador, Posicion posicion, int dorsal) {
+        super(idPersona, nombre, pais, fechaNacimiento);
         this.idJugador = idJugador;
         this.dorsal = dorsal;
         this.posicion = posicion;
+    }
+
+    // Seccion - Metodos
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "dorsal=" + dorsal +
+                "} "
+                + super.toString();
     }
 
     public String getIdJugador()
@@ -26,13 +35,20 @@ public class Jugador extends Persona {
         return dorsal;
     }
 
-    // Seccion - Metodos
-    @Override
-    public String toString() {
-        return "Jugador{" +
-                "dorsal=" + dorsal +
-                "} "
-                + super.toString();
+    public void setDorsal(int nuevoDorsal)
+    {
+        this.dorsal = nuevoDorsal;
     }
+
+    public Posicion getPosicion()
+    {
+        return posicion;
+    }
+
+    public void setPosicion(Posicion nuevaPosicion)
+    {
+        this.posicion = nuevaPosicion;
+    }
+
 
 }

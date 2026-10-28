@@ -7,9 +7,10 @@ import java.time.Period;
 public class Persona
 {
     // Seccion - Atributos
-    private String idPersona ;
+    private int idPersona;
+    private static int contandor = 0;
     private String nombre;
-    private String country ;
+    private String pais ;
     private boolean is_alive = true;
     private LocalDate fechaNacimiento;
 
@@ -24,14 +25,14 @@ public class Persona
         this.nombre = nombre;
     }
 
-    public String getCountry()
+    public String getPais()
     {
-        return this.country;
+        return this.pais;
     }
 
-    public void setCountry(String newCountry)
+    public void setPais(String newpais)
     {
-        this.country=newCountry;
+        this.pais=newpais;
     }
 
     public int getEdad()
@@ -53,11 +54,11 @@ public class Persona
     }
 
     // Seccion - Constructor
-    public Persona(String idPersona, String nombre, String country, LocalDate nacimiento)
+    public Persona(String nombre, String pais, LocalDate nacimiento)
     {
-        this.idPersona = idPersona;
+        this.idPersona = contandor++;
         this.nombre = nombre;
-        this.country = country;
+        this.pais = pais;
         this.fechaNacimiento = nacimiento;
     }
 

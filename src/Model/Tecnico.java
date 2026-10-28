@@ -1,5 +1,8 @@
 package Model;
 
+// Secciones - Importaciones
+import java.time.LocalDate;
+
 public class Tecnico extends Persona
 {
     // Seccion - Atributos
@@ -16,7 +19,10 @@ public class Tecnico extends Persona
         this.nombreClub = nuevoCLub;
     }
 
-    public Tecnico(){}
+    public Tecnico( String nombre, String pais, LocalDate fechaNacimiento, String nombreClub){
+        super(nombre, pais, fechaNacimiento);
+        this.nombreClub = nombreClub;
+    }
 
     @Override
     public String toString() {

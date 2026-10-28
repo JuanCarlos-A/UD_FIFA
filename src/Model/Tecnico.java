@@ -19,8 +19,8 @@ public class Tecnico extends Persona
         this.nombreClub = nuevoCLub;
     }
 
-    public Tecnico( String nombre, String pais, LocalDate fechaNacimiento, String nombreClub){
-        super(nombre, pais, fechaNacimiento);
+    public Tecnico(String idPersona, String nombre, String pais, LocalDate fechaNacimiento, String nombreClub){
+        super(idPersona, nombre, pais, fechaNacimiento);
         this.nombreClub = nombreClub;
     }
 

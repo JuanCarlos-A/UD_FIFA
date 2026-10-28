@@ -16,6 +16,8 @@ public class Tecnico extends Persona
         this.nombreClub = nuevoCLub;
     }
 
+    public Tecnico(){}
+
     @Override
     public String toString() {
         return "Tecnico{" +

@@ -3,7 +3,7 @@
 /.idea/workspace.xml
 /vcs.xml
 /misc.xml
-../.idea
+.idea/
 # Editor-based HTTP Client requests
 /httpRequests/
 # Ignored default folder with query files

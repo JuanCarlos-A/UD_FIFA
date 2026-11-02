@@ -1,4 +1,5 @@
 package Controller;
 
-public class ControllerEquipos {
+public class ControllerEquipos
+{
 }

@@ -3,7 +3,8 @@ package Model;
 // Seccion - Importaciones
 import java.time.LocalDate;
 
-public class Jugador extends Persona {
+public class Jugador extends Persona
+{
     private String idJugador;
     private Posicion posicion;
     private int dorsal;

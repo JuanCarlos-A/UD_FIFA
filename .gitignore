@@ -4,6 +4,7 @@
 /vcs.xml
 /misc.xml
 .idea/
+*.iml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Ignored default folder with query files

@@ -86,4 +86,13 @@ public class ControllerJugadores
 
     }
 
+    public void configurarPosicion(Jugador jugador)
+    {
+        System.out.println("Configuracion de la Posicion");
+        Posicion nuevaPosicion = jugador.elegirPosicion(sc);
+        jugador.setPosicion(nuevaPosicion);
+        System.out.println("Cambio de la Posicion realizada.");
+
+    }
+
 }

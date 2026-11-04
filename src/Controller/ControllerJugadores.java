@@ -103,6 +103,12 @@ public class ControllerJugadores
         System.out.println("Cambio del Nombre realizado.");
     }
 
-
+    public void configurarPais(Jugador jugador)
+    {
+        System.out.println("Configuracion del Pais del Jugador");
+        String nuevoPais = sc.nextLine();
+        jugador.setPais(nuevoPais);
+        System.out.println("Cambio del Pais realizado.");
+    }
 
 }

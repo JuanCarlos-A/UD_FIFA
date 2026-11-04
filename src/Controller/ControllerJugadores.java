@@ -65,6 +65,14 @@ public class ControllerJugadores
         return jugador;
     }
 
-    public void mostrarDatosJugador(Jugador jugador){}
+    public void mostrarDatosJugador(Jugador jugador){
+        System.out.println("Datos del Jugador: ");
+        System.out.println(" - Nombre Completo: " + jugador.getNombre());
+        System.out.println(" - Dorsal del Jugador: " + jugador.getDorsal());
+        System.out.println(" - Posicion del Jugador: " + jugador.getPosicion().name());
+        System.out.println(" - Numero de Identificacion del Jugador: " + jugador.getIdJugador());
+        System.out.println(" - Edad del Jugador: " + jugador.getEdad());
+        System.out.println(" - Pais del Jugador: " + jugador.getPais());
+    }
 
 }

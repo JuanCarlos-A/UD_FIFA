@@ -111,4 +111,23 @@ public class ControllerJugadores
         System.out.println("Cambio del Pais realizado.");
     }
 
+    public void configurarFechaNacimiento(Jugador jugador)
+    {
+        int dia = 0;
+        int mes = 0;
+        int ano = 0;
+        LocalDate fechaNacimiento = null;
+
+        System.out.println("Configuracion de la Fecha de Nacimiento del Jugador");
+        System.out.print("\nIngresa el numero del dia de nacimiento del Jugador: ");
+        dia = sc.nextInt();
+        System.out.print("\nIngresa el numero del mes de nacimiento del Jugador: ");
+        mes = sc.nextInt();
+        System.out.print("\nIngrese el año de nacimiento del Jugador: ");
+        ano = sc.nextInt();
+        fechaNacimiento = LocalDate.of(ano, mes, dia);
+        jugador.setFechaNacimiento(fechaNacimiento);
+        System.out.println("Cambio de la fecha de nacimiento realizado.");
+
+    }
 }

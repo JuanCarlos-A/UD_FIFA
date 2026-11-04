@@ -65,7 +65,8 @@ public class ControllerJugadores
         return jugador;
     }
 
-    public void mostrarDatosJugador(Jugador jugador){
+    public void mostrarDatosJugador(Jugador jugador)
+    {
         System.out.println("Datos del Jugador: ");
         System.out.println(" - Nombre Completo: " + jugador.getNombre());
         System.out.println(" - Dorsal del Jugador: " + jugador.getDorsal());

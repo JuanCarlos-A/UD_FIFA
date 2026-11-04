@@ -76,4 +76,14 @@ public class ControllerJugadores
         System.out.println(" - Pais del Jugador: " + jugador.getPais());
     }
 
+    public void configurarDorsal(Jugador jugador)
+    {
+        System.out.println("Configuracion del Dorsal");
+        System.out.print(" - Ingresa el Dorsal del jugador: ");
+        int nuevoDorsal = sc.nextInt();
+        jugador.setDorsal(nuevoDorsal);
+        System.out.println("Cambio del Dorsal realizado. ");
+
+    }
+
 }

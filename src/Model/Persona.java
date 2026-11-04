@@ -47,7 +47,7 @@ public class Persona
         ).getYears();
     }
 
-    public void setFechanacimiento( LocalDate nuevaFechaNacimiento)
+    public void setFechaNacimiento( LocalDate nuevaFechaNacimiento)
     {
         this.fechaNacimiento = nuevaFechaNacimiento;
     }

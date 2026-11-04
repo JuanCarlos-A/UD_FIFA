@@ -23,7 +23,7 @@ public class ControllerJugadores
         contFile.createFile();
     }
 
-    public void crearJugador()
+    public Jugador crearJugador()
     {
         // Seccion - objetos
         String idPersona = null;
@@ -61,6 +61,10 @@ public class ControllerJugadores
         jugador = new Jugador(idPersona, nombre, pais, fechaNacimiento, idJugador, posicion, dorsal);
 
         System.out.println("\nJugador creado con exito.");
+
+        return jugador;
     }
+
+    public void mostrarDatosJugador(Jugador jugador){}
 
 }

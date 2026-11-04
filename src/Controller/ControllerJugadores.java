@@ -95,4 +95,14 @@ public class ControllerJugadores
 
     }
 
+    public void configurarNombre(Jugador jugador)
+    {
+        System.out.println("Configuracion del Nombre del Jugador");
+        String nuevoNombre = sc.nextLine();
+        jugador.setNombre(nuevoNombre);
+        System.out.println("Cambio del Nombre realizado.");
+    }
+
+
+
 }

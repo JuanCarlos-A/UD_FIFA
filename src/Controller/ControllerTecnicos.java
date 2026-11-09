@@ -22,6 +22,16 @@ public class ControllerTecnicos
         contFile.createFile();
     }
 
+    public Tecnico createTecnico()
+    {
+        // Seccion - Objetos
+        String idPersona = null;
+        String nombre = null;
+        String pais = null;
+        LocalDate fechaNacimiento = null;
+        int dia,mes,ano = 0;
 
+        return tecnico;
+    }
 }
 

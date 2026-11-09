@@ -16,6 +16,12 @@ public class ControllerTecnicos
     // Seccion - Metodo Constructor
     public ControllerTecnicos(){}
 
+    // Seccion - Metodos
+    public void createFileTecnico()
+    {
+        contFile.createFile();
+    }
+
 
 }
 

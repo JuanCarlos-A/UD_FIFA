@@ -1,5 +1,37 @@
 package Controller;
 
+// Seccion de Importaciones
+import Model.Tecnico;
+import java.util.Scanner;
+import java.time.LocalDate;
+
 public class ControllerTecnicos
 {
+    // Seccion - Atributos
+    String fileName = "DataBase/tecnicos.csv";
+    ControllerFile contFile = new ControllerFile(fileName);
+    Tecnico tecnico;
+    Scanner sc = new Scanner(System.in);
+
+    // Seccion - Metodo Constructor
+    public ControllerTecnicos(){}
+
+    // Seccion - Metodos
+    public void createFileTecnico()
+    {
+        contFile.createFile();
+    }
+
+    public Tecnico crearTecnico()
+    {
+        // Seccion - Objetos
+        String idPersona = null;
+        String nombre = null;
+        String pais = null;
+        LocalDate fechaNacimiento = null;
+        int dia,mes,ano = 0;
+
+        return tecnico;
+    }
 }
+

@@ -30,6 +30,31 @@ public class ControllerTecnicos
         String pais = null;
         LocalDate fechaNacimiento = null;
         int dia,mes,ano = 0;
+        String idTecnico = null;
+        String nombreClub = null;
+
+        System.out.println("Ahora ingresa los siguientes datos sobre el tecnico siguiendo las instrucciones: ");
+        System.out.print("Ingresa el numero de identificacion como persona: ");
+        idPersona = sc.nextLine();
+        System.out.print("\nIngresa el nombre del Tecnico: ");
+        nombre = sc.nextLine();
+        System.out.print("\nIngresa el pais de origen del Tecnico: ");
+        pais = sc.nextLine();
+        System.out.print("\nIngresa el dia de nacimiento del Tecnico: ");
+        dia = sc.nextInt();
+        System.out.print("\nIngresa el mes de nacimiento del Tecnico: ");
+        mes = sc.nextInt();
+        System.out.print("\nIngresa el año de nacimiento del Tecnico: ");
+        ano = sc.nextInt();
+        fechaNacimiento = LocalDate.of(ano, mes, dia);
+        System.out.print("\nIngresa el id del Tecnico: ");
+        idTecnico = sc.nextLine();
+        System.out.print("\nIngresa el nombre del club: ");
+        nombreClub = sc.nextLine();
+
+        tecnico = new Tecnico(idPersona, nombre, pais, fechaNacimiento, idTecnico, nombreClub);
+
+        System.out.println("\nTecnico creado con exito.");
 
         return tecnico;
     }

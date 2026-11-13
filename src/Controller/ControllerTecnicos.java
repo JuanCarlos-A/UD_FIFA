@@ -58,5 +58,15 @@ public class ControllerTecnicos
 
         return tecnico;
     }
+
+    public void mostrarDatosTecnico(Tecnico tecnico)
+    {
+        System.out.println("Datos del Tecnico: ");
+        System.out.println(" - Nombre Completo : " + tecnico.getNombre());
+        System.out.println(" - Nombre del Club del Tecnico: " + tecnico.getNombreClub());
+        System.out.println(" - Numero de Identificacion del Tecnico: " + tecnico.getIdTecnico());
+        System.out.println(" - Edad del Tecnico: " + tecnico.getEdad());
+        System.out.println(" - Pais del Tecnico: " + tecnico.getPais());
+    }
 }
 

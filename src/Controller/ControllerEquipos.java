@@ -47,7 +47,7 @@ public class ControllerEquipos
             tecnicoEquipo = contTecnico.createTecnico();
         }
         System.out.println("\nAhora vamos a registrar la plantilla: ");
-        System.out.println("Recuerda que son un maximo de 10 Jugadores.");
+        System.out.println("Aqui seran maximo 10 Jugadores.");
         for (int i = 0; i < 9; i++)
         {
             System.out.println("Jugador #" + (i+1));
@@ -105,5 +105,21 @@ public class ControllerEquipos
         System.out.println("Tecnico Actualizado.");
     }
 
-
+    public void cambiarJugadorPlantilla(Equipo equipo)
+    {
+        System.out.println("Mira los jugadores y elige cual cambiar");
+        ControllerJugadores contJugador = new ControllerJugadores();
+        List<Jugador> plantilla = equipo.getPlantilla();
+        int i = 0;
+        for (Jugador j : plantilla)
+        {
+            i++;
+            System.out.println(" " + i + "- " + j.getNombre() + ".");
+        }
+        System.out.println("Ingresa el numero en la lista del Jugador que bas a cambiar: ");
+        int id = sc.nextInt();
+        Jugador jugador = contJugador.crearJugador();
+        equipo.setNewJugadorPlantilla(id, jugador);
+        System.out.println("Cambio realizado.");
+    }
 }

@@ -60,6 +60,6 @@ public class Equipo
 
     public void setNewJugadorPlantilla(int id, Jugador nuevoJugador)
     {
-        this.plantilla.add(id, nuevoJugador);
+        this.plantilla.set(id, nuevoJugador);
     }
 }

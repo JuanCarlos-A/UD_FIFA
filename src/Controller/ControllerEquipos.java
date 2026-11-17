@@ -72,4 +72,15 @@ public class ControllerEquipos
             System.out.println(" " + i + "- " + j.getNombre() + ".");
         }
     }
+
+    public void mostrarJugadorPlantilla(Equipo equipo)
+    {
+        ControllerJugadores conJugador = new ControllerJugadores();
+
+        System.out.print("Ingresa el numero en la lista donde se ubica el Jugador: ");
+        int idListaJugador = sc.nextInt();
+        Jugador jugador = equipo.getJugadorPlantilla(idListaJugador);
+        conJugador.mostrarDatosJugador(jugador);
+
+    }
 }

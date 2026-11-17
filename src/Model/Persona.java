@@ -39,6 +39,11 @@ public class Persona
         this.pais=newpais;
     }
 
+    public LocalDate getFechaNacimiento()
+    {
+        return this.fechaNacimiento;
+    }
+
     public int getEdad()
     {
         return Period.between(

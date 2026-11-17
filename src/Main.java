@@ -103,6 +103,21 @@ public class Main {
 
     }
 
+    public static int menuOpciones()
+    {
+        System.out.println("------------------ Menu FIFA -----------------------");
+        System.out.println(" ¿Con quien vas a trabajar?");
+        System.out.println("    1- Jugadores");
+        System.out.println("    2- Tecnicos");
+        System.out.println("    3- Equipos");
+        System.out.println("    4- Salir");
+        System.out.print(" Ingresa la opcion (ingresa el numero de la opcion): ");
+        int resp = sc.nextInt();
+        System.out.println("----------------------------------------------------");
+
+        return resp;
+    }
+
     public static int menuJugador()
     {
         System.out.println("------------------ Menu FIFA (Jugadores) -----------------------");
@@ -122,18 +137,4 @@ public class Main {
         return opc;
     }
 
-    public static int menuOpciones()
-    {
-        System.out.println("------------------ Menu FIFA -----------------------");
-        System.out.println(" ¿Con quien vas a trabajar?");
-        System.out.println("    1- Jugadores");
-        System.out.println("    2- Tecnicos");
-        System.out.println("    3- Equipos");
-        System.out.println("    4- Salir");
-        System.out.print(" Ingresa la opcion (ingresa el numero de la opcion): ");
-        int resp = sc.nextInt();
-        System.out.println("----------------------------------------------------");
-
-        return resp;
-    }
 }

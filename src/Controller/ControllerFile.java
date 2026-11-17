@@ -2,6 +2,10 @@ package Controller;
 
 // Seccion - Importaciones
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerFile
 {
@@ -20,6 +24,11 @@ public class ControllerFile
         File file = new File(fileName);
         try
         {
+            File carpeta = file.getAbsoluteFile().getParentFile();
+            if (carpeta != null)
+            {
+                carpeta.mkdirs();
+            }
             if (file.createNewFile())
             {
                 System.out.println("Creacion exitosa del archivo --- '" + fileName + "' --- ");
@@ -32,6 +41,44 @@ public class ControllerFile
         catch (IOException io)
         {
             System.out.println("ERROR: Ha ocurrido un error con el manejo del archivo " + fileName + " - - > error " + io.getMessage());
+        }
+    }
+
+    // Lee todas las lineas del archivo sin imprimir nada (si no existe devuelve una lista vacia)
+    public List<String> readAllLines()
+    {
+        File file = new File(fileName);
+        if (!file.exists())
+        {
+            return new ArrayList<>();
+        }
+        try
+        {
+            return Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+        }
+        catch (IOException io)
+        {
+            System.out.println("Error: Al leer el archivo " + fileName + " -> " + io.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    // Reemplaza todo el contenido del archivo por las lineas dadas (crea la carpeta y el archivo si no existen)
+    public void writeAllLines(List<String> lines)
+    {
+        File file = new File(fileName);
+        try
+        {
+            File carpeta = file.getAbsoluteFile().getParentFile();
+            if (carpeta != null)
+            {
+                carpeta.mkdirs();
+            }
+            Files.write(file.toPath(), lines, StandardCharsets.UTF_8);
+        }
+        catch (IOException io)
+        {
+            System.out.println("Error: Al guardar el archivo " + fileName + " -> " + io.getMessage());
         }
     }
 

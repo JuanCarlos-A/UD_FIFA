@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class ControllerJugadores
 {
     // Seccion - Atributos
-    String fileName = "DataBase/jugadores.csv";
+    String fileName = "src/DataBase/jugadores.csv";
     ControllerFile contFile = new ControllerFile(fileName);
     Jugador jugador;
     Scanner sc = new Scanner(System.in);

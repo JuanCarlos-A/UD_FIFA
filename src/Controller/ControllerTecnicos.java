@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class ControllerTecnicos
 {
     // Seccion - Atributos
-    String fileName = "DataBase/tecnicos.csv";
+    String fileName = "src/DataBase/tecnicos.csv";
     ControllerFile contFile = new ControllerFile(fileName);
     Tecnico tecnico;
     Scanner sc = new Scanner(System.in);

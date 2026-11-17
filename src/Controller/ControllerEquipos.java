@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ControllerEquipos
 {
     // Seccion - Atributos
-    String fileName = "DataBase/equipos.csv";
+    String fileName = "src/DataBase/equipos.csv";
     ControllerFile contFile = new ControllerFile(fileName);
     Equipo equipo;
     Scanner sc = new Scanner(System.in);

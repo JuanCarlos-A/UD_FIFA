@@ -127,38 +127,54 @@ public class ControllerEquipos
         return false;
     }
 
-    // Deja elegir un equipo ya guardado por su id, o crear uno nuevo (ENTER)
-    public Equipo seleccionarEquipo()
+    // Lista numerada de los equipos registrados; devuelve el elegido o null si no hay / se cancela (0)
+    public Equipo elegirEquipo()
     {
         List<Equipo> guardados = cargarEquipos();
         if (guardados.isEmpty())
         {
-            System.out.println("No hay equipos guardados. Vamos a crear uno.");
-            return createEquipo(null);
+            System.out.println("No hay equipos registrados.");
+            return null;
         }
-        System.out.println("Equipos guardados: ");
-        for (Equipo e : guardados)
+        System.out.println("Equipos registrados: ");
+        for (int i = 0; i < guardados.size(); i++)
         {
-            System.out.println(" - " + e.getIdEquipo() + " : " + e.getNombreEquipo());
+            Equipo e = guardados.get(i);
+            System.out.println(" " + (i + 1) + "- " + e.getNombreEquipo() + " (id " + e.getIdEquipo() + ")");
         }
         while (true)
         {
-            System.out.print("Ingresa el id del Equipo (o presiona ENTER para crear uno nuevo): ");
-            String id = Entrada.leerTexto();
-            if (id.isEmpty())
+            System.out.print("Ingresa el numero del Equipo (0 para cancelar): ");
+            int opcion = Entrada.leerEntero();
+            if (opcion == 0)
             {
-                return createEquipo(null);
+                return null;
             }
-            for (Equipo e : guardados)
+            if (opcion >= 1 && opcion <= guardados.size())
             {
-                if (e.getIdEquipo().equals(id))
-                {
-                    equipo = e;
-                    return e;
-                }
+                equipo = guardados.get(opcion - 1);
+                return equipo;
             }
-            System.out.println("No existe un Equipo con ese id.");
+            System.out.println("Opcion invalida.");
         }
+    }
+
+    // Muestra los datos de todos los equipos registrados en el CSV
+    public void mostrarEquipos()
+    {
+        List<Equipo> guardados = cargarEquipos();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay equipos registrados.");
+            return;
+        }
+        System.out.println("Equipos registrados: " + guardados.size());
+        for (Equipo e : guardados)
+        {
+            System.out.println("------------------------------");
+            mostrarDatosEquipo(e);
+        }
+        System.out.println("------------------------------");
     }
 
     // ---- Funcionalidades ----
@@ -230,24 +246,36 @@ public class ControllerEquipos
         }
     }
 
-    public void mostrarJugadorPlantilla(Equipo equipo)
+    public void mostrarJugadoresPlantilla()
     {
-        ControllerJugadores conJugador = new ControllerJugadores();
-
-        System.out.print("Ingresa el numero en la lista donde se ubica el Jugador: ");
-        int idListaJugador = Entrada.leerEntero();
-        System.out.println("\n");
-        if (idListaJugador < 1 || idListaJugador > equipo.getPlantilla().size())
+        Equipo equipo = elegirEquipo();
+        if (equipo == null)
         {
-            System.out.println("No existe un Jugador en esa posicion de la lista.");
             return;
         }
-        Jugador jugador = equipo.getJugadorPlantilla(idListaJugador - 1);
-        conJugador.mostrarDatosJugador(jugador);
+        ControllerJugadores conJugador = new ControllerJugadores();
+        List<Jugador> plantilla = equipo.getPlantilla();
+        if (plantilla.isEmpty())
+        {
+            System.out.println("El equipo " + equipo.getNombreEquipo() + " no tiene jugadores en la plantilla.");
+            return;
+        }
+        System.out.println("Jugadores del equipo " + equipo.getNombreEquipo() + ": ");
+        for (Jugador j : plantilla)
+        {
+            System.out.println("------------------------------");
+            conJugador.mostrarDatosJugador(j);
+        }
+        System.out.println("------------------------------");
     }
 
-    public void configurarNombreEquipo(Equipo equipo)
+    public void configurarNombreEquipo()
     {
+        Equipo equipo = elegirEquipo();
+        if (equipo == null)
+        {
+            return;
+        }
         System.out.print("Ingresa el nombre del equipo: ");
         String nuevoNombre = Entrada.leerTexto();
         equipo.setNombreEquipo(nuevoNombre);
@@ -255,8 +283,13 @@ public class ControllerEquipos
         System.out.println("\nNombre actualizado.");
     }
 
-    public void configurarTecnico(Equipo equipo)
+    public void configurarTecnico()
     {
+        Equipo equipo = elegirEquipo();
+        if (equipo == null)
+        {
+            return;
+        }
         ControllerTecnicos contTecnico = new ControllerTecnicos();
         System.out.println("Ingresando un nuevo Tecnico al Equipo: ");
         Tecnico tecnico = contTecnico.seleccionarTecnico();
@@ -265,8 +298,13 @@ public class ControllerEquipos
         System.out.println("Tecnico Actualizado.");
     }
 
-    public void cambiarJugadorPlantilla(Equipo equipo)
+    public void cambiarJugadorPlantilla()
     {
+        Equipo equipo = elegirEquipo();
+        if (equipo == null)
+        {
+            return;
+        }
         System.out.println("Mira los jugadores y elige cual cambiar");
         ControllerJugadores contJugador = new ControllerJugadores();
         List<Jugador> plantilla = equipo.getPlantilla();

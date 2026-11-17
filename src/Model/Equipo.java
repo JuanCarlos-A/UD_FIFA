@@ -3,6 +3,7 @@ package Model;
 // Seccion - Importaciones
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Equipo
 {
@@ -57,9 +58,8 @@ public class Equipo
         this.tecnicoEquipo = nuevoTecnico;
     }
 
-    public void setPlantilla(int id, Jugador nuevoJugador)
+    public void setNewJugadorPlantilla(int id, Jugador nuevoJugador)
     {
         this.plantilla.add(id, nuevoJugador);
     }
-
 }

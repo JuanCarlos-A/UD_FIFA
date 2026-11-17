@@ -23,6 +23,25 @@ public class Entrada
         return sc.nextLine().trim().replace(";", " ").replace("|", " ");
     }
 
+    // Pregunta si/no y repite hasta recibir una respuesta valida
+    public static boolean confirmar(String pregunta)
+    {
+        while (true)
+        {
+            System.out.print(pregunta + " (s/n): ");
+            String r = sc.nextLine().trim().toLowerCase();
+            if (r.equals("s") || r.equals("si") || r.equals("sí"))
+            {
+                return true;
+            }
+            if (r.equals("n") || r.equals("no"))
+            {
+                return false;
+            }
+            System.out.println("Responde con s o n.");
+        }
+    }
+
     public static int leerEntero()
     {
         while (true)

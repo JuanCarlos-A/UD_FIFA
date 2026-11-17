@@ -68,7 +68,11 @@ public class ControllerTecnicos
         {
             lista.add(t);
         }
+        escribirTecnicos(lista);
+    }
 
+    private void escribirTecnicos(List<Tecnico> lista)
+    {
         List<String> lineas = new ArrayList<>();
         lineas.add(encabezado);
         for (Tecnico x : lista)
@@ -226,6 +230,32 @@ public class ControllerTecnicos
         System.out.println(" - Edad del Tecnico: " + tecnico.getEdad());
         System.out.println(" - Pais del Tecnico: " + tecnico.getPais());
         System.out.println(" - Numero de Identificacion del Jugador como Persona: " + tecnico.getIdPersona());
+    }
+
+    public void eliminarTecnico()
+    {
+        Tecnico t = elegirTecnico();
+        if (t == null)
+        {
+            return;
+        }
+        // Un equipo no puede quedarse sin tecnico: si lo dirige alguno, primero hay que cambiarselo
+        List<String> equipos = new ControllerEquipos().nombresEquiposDeTecnico(t.getIdTecnico());
+        if (!equipos.isEmpty())
+        {
+            System.out.println("No se puede eliminar a " + t.getNombre() + " porque es tecnico de: " + String.join(", ", equipos));
+            System.out.println("Primero cambia el tecnico de esos equipos (Menu Equipos - Configurar el tecnico).");
+            return;
+        }
+        if (!Entrada.confirmar("Seguro que quieres eliminar a " + t.getNombre() + " (id " + t.getIdTecnico() + ")"))
+        {
+            System.out.println("Eliminacion cancelada.");
+            return;
+        }
+        List<Tecnico> lista = cargarTecnicos();
+        lista.removeIf(x -> x.getIdTecnico().equals(t.getIdTecnico()));
+        escribirTecnicos(lista);
+        System.out.println("Tecnico eliminado.");
     }
 
     public void configurarNombreClub()

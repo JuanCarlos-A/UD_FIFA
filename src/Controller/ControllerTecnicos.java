@@ -37,9 +37,9 @@ public class ControllerTecnicos
         System.out.print("Ingresa el numero de identificacion como persona: ");
         idPersona = sc.next();
         System.out.print("\nIngresa el nombre del Tecnico: ");
-        nombre = sc.nextLine();
+        nombre = sc.next();
         System.out.print("\nIngresa el pais de origen del Tecnico: ");
-        pais = sc.nextLine();
+        pais = sc.next();
         System.out.print("\nIngresa el dia de nacimiento del Tecnico: ");
         dia = sc.nextInt();
         System.out.print("\nIngresa el mes de nacimiento del Tecnico: ");

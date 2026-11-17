@@ -144,6 +144,73 @@ public class Main {
                     }
                     break;
 
+                case 3:
+                    while (condi)
+                    {
+                        // Menu Jugadores
+                        int opc = menuEquipo();
+                        switch (opc)
+                        {
+                            case 1:
+                                contEquipo.createFileEquipos();
+                                break;
+                            case 2:
+                                if (tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                    equipo = contEquipo.createEquipo(tecnico);
+                                }
+
+                                break;
+                            case 3:
+                                if (equipo == null || tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                    equipo = contEquipo.createEquipo(tecnico);
+                                }
+                                contEquipo.mostrarDatosEquipo(equipo);
+                                break;
+                            case 4:
+                                if (equipo == null || tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                    equipo = contEquipo.createEquipo(tecnico);
+                                }
+                                contEquipo.mostrarJugadorPlantilla(equipo);
+                                break;
+                            case 5:
+                                if (equipo == null || tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                    equipo = contEquipo.createEquipo(tecnico);
+                                }
+                                contEquipo.configurarNombreEquipo(equipo);
+                                break;
+                            case 6:
+                                if (equipo == null || tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                    equipo = contEquipo.createEquipo(tecnico);
+                                }
+                                contEquipo.configurarTecnico(equipo);
+                                break;
+                            case 7:
+                                if (equipo == null || tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                    equipo = contEquipo.createEquipo(tecnico);
+                                }
+                                contEquipo.cambiarJugadorPlantilla(equipo);
+                                break;
+                            case 8:
+                                condi = false;
+                                break;
+                            default:
+                                System.out.println("Opcion Invalida");
+                        }
+                    }
+                    break;
+
                 case 4:
                     condition = false;
                     break;
@@ -200,6 +267,24 @@ public class Main {
         System.out.println("    5- Configurar el pais del Tecnico");
         System.out.println("    6- Configurar la fecha de nacimiento del Tecnico");
         System.out.println("    7- Salir menu Tecnicos");
+        System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
+        int opc = sc.nextInt();
+
+        return opc;
+    }
+
+    public static int menuEquipo()
+    {
+        System.out.println("------------------ Menu FIFA (Equipos) -----------------------");
+        System.out.println(" ¿Que vas a hacer?");
+        System.out.println("    1- Crear Archivo donde se Almacenan datos (Si no estas seguro de que ya exista)");
+        System.out.println("    2- Crear un Equipo");
+        System.out.println("    3- Mostrar datos del Equipo");
+        System.out.println("    4- Mostrar un Jugador del Equipo");
+        System.out.println("    5- Configurar el nombre del Equipo");
+        System.out.println("    6- Configurar el tecnico del Equipo");
+        System.out.println("    7- Cambiar un Jugador del Equipo");
+        System.out.println("    8- Salir menu Equipos");
         System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
         int opc = sc.nextInt();
 

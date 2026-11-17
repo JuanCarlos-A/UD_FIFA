@@ -35,7 +35,7 @@ public class ControllerTecnicos
 
         System.out.println("Ahora ingresa los siguientes datos sobre el tecnico siguiendo las instrucciones: ");
         System.out.print("Ingresa el numero de identificacion como persona: ");
-        idPersona = sc.nextLine();
+        idPersona = sc.next();
         System.out.print("\nIngresa el nombre del Tecnico: ");
         nombre = sc.nextLine();
         System.out.print("\nIngresa el pais de origen del Tecnico: ");

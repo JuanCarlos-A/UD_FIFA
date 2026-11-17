@@ -69,7 +69,11 @@ public class ControllerJugadores
         {
             lista.add(j);
         }
+        escribirJugadores(lista);
+    }
 
+    private void escribirJugadores(List<Jugador> lista)
+    {
         List<String> lineas = new ArrayList<>();
         lineas.add(encabezado);
         for (Jugador x : lista)
@@ -95,13 +99,23 @@ public class ControllerJugadores
     // Lista numerada de los jugadores registrados; devuelve el elegido o null si no hay / se cancela (0)
     public Jugador elegirJugador()
     {
-        List<Jugador> guardados = cargarJugadores();
-        if (guardados.isEmpty())
+        return elegirDeLista(cargarJugadores(), "Jugadores registrados: ", "No hay jugadores registrados.");
+    }
+
+    // Igual que elegirJugador, pero sobre la lista que se le pase (por ejemplo, solo los que no estan en un equipo)
+    public Jugador elegirDeLista(List<Jugador> candidatos, String titulo, String mensajeVacio)
+    {
+        if (candidatos.isEmpty())
         {
-            System.out.println("No hay jugadores registrados.");
+            System.out.println(mensajeVacio);
             return null;
         }
-        imprimirLista(guardados);
+        System.out.println(titulo);
+        for (int i = 0; i < candidatos.size(); i++)
+        {
+            Jugador j = candidatos.get(i);
+            System.out.println(" " + (i + 1) + "- " + j.getNombre() + " (id " + j.getIdJugador() + ")");
+        }
         while (true)
         {
             System.out.print("Ingresa el numero del Jugador (0 para cancelar): ");
@@ -110,9 +124,9 @@ public class ControllerJugadores
             {
                 return null;
             }
-            if (opcion >= 1 && opcion <= guardados.size())
+            if (opcion >= 1 && opcion <= candidatos.size())
             {
-                jugador = guardados.get(opcion - 1);
+                jugador = candidatos.get(opcion - 1);
                 return jugador;
             }
             System.out.println("Opcion invalida.");
@@ -303,6 +317,26 @@ public class ControllerJugadores
         jugador.setFechaNacimiento(fechaNacimiento);
         guardarJugador(jugador);
         System.out.println("Cambio de la fecha de nacimiento realizado.");
+    }
+
+    public void eliminarJugador()
+    {
+        Jugador j = elegirJugador();
+        if (j == null)
+        {
+            return;
+        }
+        if (!Entrada.confirmar("Seguro que quieres eliminar a " + j.getNombre() + " (id " + j.getIdJugador() + ")? Tambien saldra de los equipos donde este"))
+        {
+            System.out.println("Eliminacion cancelada.");
+            return;
+        }
+        // Primero se saca de las plantillas y luego se borra del CSV de jugadores
+        new ControllerEquipos().quitarJugadorDeEquipos(j.getIdJugador());
+        List<Jugador> lista = cargarJugadores();
+        lista.removeIf(x -> x.getIdJugador().equals(j.getIdJugador()));
+        escribirJugadores(lista);
+        System.out.println("Jugador eliminado.");
     }
 
     static Posicion elegirPosicion()

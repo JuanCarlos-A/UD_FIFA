@@ -17,4 +17,10 @@ public class ControllerEquipos
 
     // Seccion - Metodo Constructor
     public ControllerEquipos(){}
+
+    // Seccion - Metodos
+    public void createFileEquipos()
+    {
+        contFile.createFile();
+    }
 }

@@ -85,5 +85,25 @@ public class ControllerTecnicos
         tecnico.setPais(nuevoPais);
         System.out.println("Cambio del Pais realizado.");
     }
+
+    public void configurarFechaNacimiento(Tecnico tecnico)
+    {
+        int dia = 0;
+        int mes = 0;
+        int ano = 0;
+        LocalDate fechaNacimiento = null;
+
+        System.out.println("Configuracion de la Fecha de Nacimiento del Tecnico:");
+        System.out.print("\nIngresa el numero del dia de nacimiento del Tecnico: ");
+        dia = sc.nextInt();
+        System.out.print("\nIngresa el numero del mes de nacimiento del Tecnico: ");
+        mes = sc.nextInt();
+        System.out.print("\nIngrese el año de nacimiento del Tecnico: ");
+        ano = sc.nextInt();
+        fechaNacimiento = LocalDate.of(ano, mes, dia);
+        tecnico.setFechaNacimiento(fechaNacimiento);
+        System.out.println("Cambio de la fecha de nacimiento realizado.");
+
+    }
 }
 

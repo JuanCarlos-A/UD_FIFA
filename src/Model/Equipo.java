@@ -33,9 +33,9 @@ public class Equipo
         return nombreEquipo;
     }
 
-    public Tecnico getTecnicoEquipo()
+    public String getTecnicoEquipo()
     {
-        return tecnicoEquipo;
+        return tecnicoEquipo.getNombre();
     }
 
     public List<Jugador> getPlantilla()

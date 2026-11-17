@@ -8,17 +8,17 @@ public class Equipo
 {
     //Seccion - Atributos
     private String idEquipo;
-    private Tecnico tecnico_equipo;
+    private Tecnico tecnicoEquipo;
     private List<Jugador> plantilla = new ArrayList<>();
     private String nombreEquipo = null;
 
     // Seccion - Constructor
-    public Equipo(String idEquipo, String nombreEquipo, List<Jugador> plantilla, Tecnico tecnico_equipo)
+    public Equipo(String idEquipo, String nombreEquipo, List<Jugador> plantilla, Tecnico tecnicoEquipo)
     {
         this.idEquipo = idEquipo;
         this.nombreEquipo = nombreEquipo;
         this.plantilla = plantilla;
-        this.tecnico_equipo = tecnico_equipo;
+        this.tecnicoEquipo = tecnicoEquipo;
     }
 
     // Seccion - Metodos
@@ -32,9 +32,9 @@ public class Equipo
         return nombreEquipo;
     }
 
-    public Tecnico getTecnico_equipo()
+    public Tecnico getTecnicoEquipo()
     {
-        return tecnico_equipo;
+        return tecnicoEquipo;
     }
 
     public List<Jugador> getPlantilla()
@@ -52,9 +52,9 @@ public class Equipo
         this.nombreEquipo = nuevoNombreEquipo;
     }
 
-    public void setTecnico_equipo(Tecnico nuevoTecnico)
+    public void setTecnicoEquipo(Tecnico nuevoTecnico)
     {
-        this.tecnico_equipo = nuevoTecnico;
+        this.tecnicoEquipo = nuevoTecnico;
     }
 
     public void setPlantilla(int id, Jugador nuevoJugador)

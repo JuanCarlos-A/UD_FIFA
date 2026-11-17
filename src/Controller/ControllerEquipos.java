@@ -4,6 +4,8 @@ package Controller;
 import Model.Equipo;
 import Model.Jugador;
 import Model.Tecnico;
+
+import java.security.spec.RSAOtherPrimeInfo;
 import  java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -93,4 +95,15 @@ public class ControllerEquipos
         System.out.println("\nNombre actualizado.");
 
     }
+
+    public void configurarTecnico(Equipo equipo)
+    {
+        ControllerTecnicos contTecnico = new ControllerTecnicos();
+        System.out.println("Ingresando un nuevo Tecnico al Equipo: ");
+        Tecnico tecnico = contTecnico.createTecnico();
+        equipo.setTecnicoEquipo(tecnico);
+        System.out.println("Tecnico Actualizado.");
+    }
+
+
 }

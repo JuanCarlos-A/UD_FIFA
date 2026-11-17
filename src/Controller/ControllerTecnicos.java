@@ -229,7 +229,7 @@ public class ControllerTecnicos
         System.out.println(" - Numero de Identificacion del Tecnico: " + tecnico.getIdTecnico());
         System.out.println(" - Edad del Tecnico: " + tecnico.getEdad());
         System.out.println(" - Pais del Tecnico: " + tecnico.getPais());
-        System.out.println(" - Numero de Identificacion del Jugador como Persona: " + tecnico.getIdPersona());
+        System.out.println(" - Numero de Identificacion del Tecnico como Persona: " + tecnico.getIdPersona());
     }
 
     public void eliminarTecnico()

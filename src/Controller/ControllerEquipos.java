@@ -56,4 +56,20 @@ public class ControllerEquipos
 
         return equipo;
     }
+
+    public void mostrarDatosEquipo(Equipo equipo)
+    {
+        System.out.println("Datos del Equipo: ");
+        System.out.println(" - Nombre del Equipo: " + equipo.getNombreEquipo());
+        System.out.println(" - Numero de Identificacion del Equipo: " + equipo.getIdEquipo());
+        System.out.println(" - Tecnico del Equipo: " + equipo.getTecnicoEquipo());
+        System.out.println(" - Plantilla del Equipo: " );
+        List<Jugador> plantilla = equipo.getPlantilla();
+        int i = 0;
+        for (Jugador j : plantilla)
+        {
+            i++;
+            System.out.println(" " + i + "- " + j.getNombre() + ".");
+        }
+    }
 }

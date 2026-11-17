@@ -48,7 +48,7 @@ public class ControllerEquipos
         }
         System.out.println("\nAhora vamos a registrar la plantilla: ");
         System.out.println("Aqui seran maximo 10 Jugadores.");
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 1; i++)
         {
             System.out.println("Jugador #" + (i+1));
             plantilla.add(jugador.crearJugador());
@@ -82,7 +82,7 @@ public class ControllerEquipos
         System.out.print("Ingresa el numero en la lista donde se ubica el Jugador: ");
         int idListaJugador = sc.nextInt();
         System.out.println("\n");
-        Jugador jugador = equipo.getJugadorPlantilla(idListaJugador);
+        Jugador jugador = equipo.getJugadorPlantilla(idListaJugador - 1);
         conJugador.mostrarDatosJugador(jugador);
 
     }

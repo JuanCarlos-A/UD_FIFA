@@ -50,7 +50,7 @@ public class ControllerTecnicos
         System.out.print("\nIngresa el id del Tecnico: ");
         idTecnico = sc.next();
         System.out.print("\nIngresa el nombre del club: ");
-        nombreClub = sc.nextLine();
+        nombreClub = sc.next();
 
         tecnico = new Tecnico(idPersona, nombre, pais, fechaNacimiento, idTecnico, nombreClub);
 

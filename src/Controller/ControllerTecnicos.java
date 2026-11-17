@@ -91,36 +91,86 @@ public class ControllerTecnicos
         return null;
     }
 
-    // Deja elegir un tecnico ya guardado por su id, o crear uno nuevo (ENTER)
+    // Lista numerada de los tecnicos registrados; devuelve el elegido o null si no hay / se cancela (0)
+    public Tecnico elegirTecnico()
+    {
+        List<Tecnico> guardados = cargarTecnicos();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay tecnicos registrados.");
+            return null;
+        }
+        imprimirLista(guardados);
+        while (true)
+        {
+            System.out.print("Ingresa el numero del Tecnico (0 para cancelar): ");
+            int opcion = Entrada.leerEntero();
+            if (opcion == 0)
+            {
+                return null;
+            }
+            if (opcion >= 1 && opcion <= guardados.size())
+            {
+                tecnico = guardados.get(opcion - 1);
+                return tecnico;
+            }
+            System.out.println("Opcion invalida.");
+        }
+    }
+
+    // Igual que elegirTecnico, pero con la opcion 0 para crear un tecnico nuevo (se usa al armar equipos)
     public Tecnico seleccionarTecnico()
     {
         List<Tecnico> guardados = cargarTecnicos();
         if (guardados.isEmpty())
         {
-            System.out.println("No hay tecnicos guardados. Vamos a crear uno.");
+            System.out.println("No hay tecnicos registrados. Vamos a crear uno.");
             return createTecnico();
         }
-        System.out.println("Tecnicos guardados: ");
-        for (Tecnico t : guardados)
-        {
-            System.out.println(" - " + t.getIdTecnico() + " : " + t.getNombre());
-        }
+        imprimirLista(guardados);
         while (true)
         {
-            System.out.print("Ingresa el id del Tecnico (o presiona ENTER para crear uno nuevo): ");
-            String id = Entrada.leerTexto();
-            if (id.isEmpty())
+            System.out.print("Ingresa el numero del Tecnico (0 para crear uno nuevo): ");
+            int opcion = Entrada.leerEntero();
+            if (opcion == 0)
             {
                 return createTecnico();
             }
-            Tecnico encontrado = buscarPorId(id);
-            if (encontrado != null)
+            if (opcion >= 1 && opcion <= guardados.size())
             {
-                tecnico = encontrado;
-                return encontrado;
+                tecnico = guardados.get(opcion - 1);
+                return tecnico;
             }
-            System.out.println("No existe un Tecnico con ese id.");
+            System.out.println("Opcion invalida.");
         }
+    }
+
+    private void imprimirLista(List<Tecnico> lista)
+    {
+        System.out.println("Tecnicos registrados: ");
+        for (int i = 0; i < lista.size(); i++)
+        {
+            Tecnico t = lista.get(i);
+            System.out.println(" " + (i + 1) + "- " + t.getNombre() + " (id " + t.getIdTecnico() + ")");
+        }
+    }
+
+    // Muestra los datos de todos los tecnicos registrados en el CSV
+    public void mostrarTecnicos()
+    {
+        List<Tecnico> guardados = cargarTecnicos();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay tecnicos registrados.");
+            return;
+        }
+        System.out.println("Tecnicos registrados: " + guardados.size());
+        for (Tecnico t : guardados)
+        {
+            System.out.println("------------------------------");
+            mostrarDatosTecnico(t);
+        }
+        System.out.println("------------------------------");
     }
 
     // ---- Funcionalidades ----
@@ -178,8 +228,13 @@ public class ControllerTecnicos
         System.out.println(" - Numero de Identificacion del Jugador como Persona: " + tecnico.getIdPersona());
     }
 
-    public void configurarNombreClub(Tecnico tecnico)
+    public void configurarNombreClub()
     {
+        Tecnico tecnico = elegirTecnico();
+        if (tecnico == null)
+        {
+            return;
+        }
         System.out.println("Configuración del Nombre del Club en el que trbaja el Tecnico.");
         System.out.print(" - Ingresa el nombre del club: ");
         String nuevoNombreClub = Entrada.leerTexto();
@@ -188,8 +243,13 @@ public class ControllerTecnicos
         System.out.println("Cambio de Nombre realizado.");
     }
 
-    public void configurarPais(Tecnico tecnico)
+    public void configurarPais()
     {
+        Tecnico tecnico = elegirTecnico();
+        if (tecnico == null)
+        {
+            return;
+        }
         System.out.println("Configuracion del Pais del Tecnico");
         System.out.print(" - Ingresa el pais: ");
         String nuevoPais = Entrada.leerTexto();
@@ -198,8 +258,13 @@ public class ControllerTecnicos
         System.out.println("Cambio del Pais realizado.");
     }
 
-    public void configurarFechaNacimiento(Tecnico tecnico)
+    public void configurarFechaNacimiento()
     {
+        Tecnico tecnico = elegirTecnico();
+        if (tecnico == null)
+        {
+            return;
+        }
         System.out.println("Configuracion de la Fecha de Nacimiento del Tecnico:");
         LocalDate fechaNacimiento = Entrada.leerFecha("Tecnico");
         tecnico.setFechaNacimiento(fechaNacimiento);

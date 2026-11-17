@@ -2,16 +2,17 @@ package Controller;
 
 // Seccion de Importaciones
 import Model.Tecnico;
-import java.util.Scanner;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerTecnicos
 {
     // Seccion - Atributos
     String fileName = "src/DataBase/tecnicos.csv";
+    String encabezado = "idPersona;nombre;pais;fechaNacimiento;idTecnico;nombreClub";
     ControllerFile contFile = new ControllerFile(fileName);
     Tecnico tecnico;
-    Scanner sc = new Scanner(System.in);
 
     // Seccion - Metodo Constructor
     public ControllerTecnicos(){}
@@ -20,43 +21,150 @@ public class ControllerTecnicos
     public void createFileTecnico()
     {
         contFile.createFile();
+        if (contFile.readAllLines().isEmpty())
+        {
+            contFile.writeAllLines(List.of(encabezado));
+        }
     }
 
+    // ---- Persistencia (CSV) ----
+    public List<Tecnico> cargarTecnicos()
+    {
+        List<Tecnico> lista = new ArrayList<>();
+        for (String linea : contFile.readAllLines())
+        {
+            if (linea.isBlank() || linea.startsWith("idPersona;"))
+            {
+                continue;
+            }
+            try
+            {
+                String[] d = linea.split(";", -1);
+                lista.add(new Tecnico(d[0], d[1], d[2], LocalDate.parse(d[3]), d[4], d[5]));
+            }
+            catch (RuntimeException e)
+            {
+                System.out.println("Linea ignorada en " + fileName + " (formato invalido): " + linea);
+            }
+        }
+        return lista;
+    }
+
+    // Inserta el tecnico, o lo reemplaza si ya existe uno con el mismo idTecnico
+    public void guardarTecnico(Tecnico t)
+    {
+        List<Tecnico> lista = cargarTecnicos();
+        boolean reemplazado = false;
+        for (int i = 0; i < lista.size(); i++)
+        {
+            if (lista.get(i).getIdTecnico().equals(t.getIdTecnico()))
+            {
+                lista.set(i, t);
+                reemplazado = true;
+                break;
+            }
+        }
+        if (!reemplazado)
+        {
+            lista.add(t);
+        }
+
+        List<String> lineas = new ArrayList<>();
+        lineas.add(encabezado);
+        for (Tecnico x : lista)
+        {
+            lineas.add(String.join(";", x.getIdPersona(), x.getNombre(), x.getPais(), x.getFechaNacimiento().toString(),
+                    x.getIdTecnico(), x.getNombreClub()));
+        }
+        contFile.writeAllLines(lineas);
+    }
+
+    public Tecnico buscarPorId(String idTecnico)
+    {
+        for (Tecnico t : cargarTecnicos())
+        {
+            if (t.getIdTecnico().equals(idTecnico))
+            {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    // Deja elegir un tecnico ya guardado por su id, o crear uno nuevo (ENTER)
+    public Tecnico seleccionarTecnico()
+    {
+        List<Tecnico> guardados = cargarTecnicos();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay tecnicos guardados. Vamos a crear uno.");
+            return createTecnico();
+        }
+        System.out.println("Tecnicos guardados: ");
+        for (Tecnico t : guardados)
+        {
+            System.out.println(" - " + t.getIdTecnico() + " : " + t.getNombre());
+        }
+        while (true)
+        {
+            System.out.print("Ingresa el id del Tecnico (o presiona ENTER para crear uno nuevo): ");
+            String id = Entrada.leerTexto();
+            if (id.isEmpty())
+            {
+                return createTecnico();
+            }
+            Tecnico encontrado = buscarPorId(id);
+            if (encontrado != null)
+            {
+                tecnico = encontrado;
+                return encontrado;
+            }
+            System.out.println("No existe un Tecnico con ese id.");
+        }
+    }
+
+    // ---- Funcionalidades ----
     public Tecnico createTecnico()
     {
-        // Seccion - Objetos
-        String idPersona = null;
-        String nombre = null;
-        String pais = null;
-        LocalDate fechaNacimiento = null;
-        int dia,mes,ano = 0;
-        String idTecnico = null;
-        String nombreClub = null;
-
         System.out.println("Ahora ingresa los siguientes datos sobre el tecnico siguiendo las instrucciones: ");
         System.out.print("Ingresa el numero de identificacion como persona: ");
-        idPersona = sc.next();
+        String idPersona = Entrada.leerTexto();
         System.out.print("\nIngresa el nombre del Tecnico: ");
-        nombre = sc.next();
+        String nombre = Entrada.leerTexto();
         System.out.print("\nIngresa el pais de origen del Tecnico: ");
-        pais = sc.next();
-        System.out.print("\nIngresa el dia de nacimiento del Tecnico: ");
-        dia = sc.nextInt();
-        System.out.print("\nIngresa el mes de nacimiento del Tecnico: ");
-        mes = sc.nextInt();
-        System.out.print("\nIngresa el año de nacimiento del Tecnico: ");
-        ano = sc.nextInt();
-        fechaNacimiento = LocalDate.of(ano, mes, dia);
-        System.out.print("\nIngresa el id del Tecnico: ");
-        idTecnico = sc.next();
+        String pais = Entrada.leerTexto();
+        LocalDate fechaNacimiento = Entrada.leerFecha("Tecnico");
+        String idTecnico = pedirIdTecnico();
         System.out.print("\nIngresa el nombre del club: ");
-        nombreClub = sc.next();
+        String nombreClub = Entrada.leerTexto();
 
         tecnico = new Tecnico(idPersona, nombre, pais, fechaNacimiento, idTecnico, nombreClub);
+        guardarTecnico(tecnico);
 
-        System.out.println("\nTecnico creado con exito.");
+        System.out.println("\nTecnico creado con exito y guardado en " + fileName);
 
         return tecnico;
+    }
+
+    private String pedirIdTecnico()
+    {
+        while (true)
+        {
+            System.out.print("\nIngresa el id del Tecnico: ");
+            String id = Entrada.leerTexto();
+            if (id.isEmpty())
+            {
+                System.out.println("El id no puede estar vacio.");
+            }
+            else if (buscarPorId(id) != null)
+            {
+                System.out.println("Ya existe un Tecnico con ese id.");
+            }
+            else
+            {
+                return id;
+            }
+        }
     }
 
     public void mostrarDatosTecnico(Tecnico tecnico)
@@ -74,8 +182,9 @@ public class ControllerTecnicos
     {
         System.out.println("Configuración del Nombre del Club en el que trbaja el Tecnico.");
         System.out.print(" - Ingresa el nombre del club: ");
-        String nuevoNombreClub = sc.next();
+        String nuevoNombreClub = Entrada.leerTexto();
         tecnico.setNombreClub(nuevoNombreClub);
+        guardarTecnico(tecnico);
         System.out.println("Cambio de Nombre realizado.");
     }
 
@@ -83,29 +192,18 @@ public class ControllerTecnicos
     {
         System.out.println("Configuracion del Pais del Tecnico");
         System.out.print(" - Ingresa el pais: ");
-        String nuevoPais = sc.next();
+        String nuevoPais = Entrada.leerTexto();
         tecnico.setPais(nuevoPais);
+        guardarTecnico(tecnico);
         System.out.println("Cambio del Pais realizado.");
     }
 
     public void configurarFechaNacimiento(Tecnico tecnico)
     {
-        int dia = 0;
-        int mes = 0;
-        int ano = 0;
-        LocalDate fechaNacimiento = null;
-
         System.out.println("Configuracion de la Fecha de Nacimiento del Tecnico:");
-        System.out.print("\nIngresa el numero del dia de nacimiento del Tecnico: ");
-        dia = sc.nextInt();
-        System.out.print("\nIngresa el numero del mes de nacimiento del Tecnico: ");
-        mes = sc.nextInt();
-        System.out.print("\nIngrese el año de nacimiento del Tecnico: ");
-        ano = sc.nextInt();
-        fechaNacimiento = LocalDate.of(ano, mes, dia);
+        LocalDate fechaNacimiento = Entrada.leerFecha("Tecnico");
         tecnico.setFechaNacimiento(fechaNacimiento);
+        guardarTecnico(tecnico);
         System.out.println("Cambio de la fecha de nacimiento realizado.");
-
     }
 }
-

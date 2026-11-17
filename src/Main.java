@@ -158,8 +158,9 @@ public class Main {
                                 if (tecnico == null)
                                 {
                                     tecnico = contTecnico.createTecnico();
-                                    equipo = contEquipo.createEquipo(tecnico);
                                 }
+
+                                equipo = contEquipo.createEquipo(tecnico);
 
                                 break;
                             case 3:

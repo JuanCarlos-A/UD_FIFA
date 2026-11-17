@@ -1,7 +1,6 @@
 package Controller;
 
 // Seccion de Importaciones
-import Model.Jugador;
 import Model.Tecnico;
 import java.util.Scanner;
 import java.time.LocalDate;

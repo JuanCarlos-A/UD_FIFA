@@ -38,6 +38,11 @@ public class Equipo
         return tecnicoEquipo.getNombre();
     }
 
+    public Tecnico getTecnico()
+    {
+        return tecnicoEquipo;
+    }
+
     public List<Jugador> getPlantilla()
     {
         return plantilla;

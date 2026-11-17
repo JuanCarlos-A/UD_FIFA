@@ -1,6 +1,7 @@
 package Controller;
 
 // Seccion de Importaciones
+import Model.Jugador;
 import Model.Tecnico;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -71,10 +72,18 @@ public class ControllerTecnicos
 
     public void configurarNombreClub(Tecnico tecnico)
     {
-        System.out.println("Configuración del Nombre del Club");
+        System.out.println("Configuración del Nombre del Club en el que trbaja el Tecnico.");
         String nuevoNombreClub = sc.nextLine();
         tecnico.setNombreClub(nuevoNombreClub);
         System.out.println("Cambio de Nombre realizado.");
+    }
+
+    public void configurarPais(Tecnico tecnico)
+    {
+        System.out.println("Configuracion del Pais del Tecnico");
+        String nuevoPais = sc.nextLine();
+        tecnico.setPais(nuevoPais);
+        System.out.println("Cambio del Pais realizado.");
     }
 }
 

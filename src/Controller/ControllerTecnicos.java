@@ -73,6 +73,7 @@ public class ControllerTecnicos
     public void configurarNombreClub(Tecnico tecnico)
     {
         System.out.println("Configuración del Nombre del Club en el que trbaja el Tecnico.");
+        System.out.print(" - Ingresa el nombre del club: ");
         String nuevoNombreClub = sc.next();
         tecnico.setNombreClub(nuevoNombreClub);
         System.out.println("Cambio de Nombre realizado.");
@@ -81,6 +82,7 @@ public class ControllerTecnicos
     public void configurarPais(Tecnico tecnico)
     {
         System.out.println("Configuracion del Pais del Tecnico");
+        System.out.print(" - Ingresa el pais: ");
         String nuevoPais = sc.next();
         tecnico.setPais(nuevoPais);
         System.out.println("Cambio del Pais realizado.");

@@ -90,7 +90,7 @@ public class ControllerEquipos
     public void configurarNombreEquipo(Equipo equipo)
     {
         System.out.print("Ingresa el nombre del equipo: ");
-        String nuevoNombre = sc.nextLine();
+        String nuevoNombre = sc.next();
         equipo.setNombreEquipo(nuevoNombre);
         System.out.println("\nNombre actualizado.");
 

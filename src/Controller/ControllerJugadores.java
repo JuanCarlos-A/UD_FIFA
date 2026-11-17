@@ -99,6 +99,7 @@ public class ControllerJugadores
     public void configurarNombre(Jugador jugador)
     {
         System.out.println("Configuracion del Nombre del Jugador");
+        System.out.print("Ingresa el nuevo nombre del Jugador: ");
         String nuevoNombre = sc.nextLine();
         jugador.setNombre(nuevoNombre);
         System.out.println("Cambio del Nombre realizado.");
@@ -107,6 +108,7 @@ public class ControllerJugadores
     public void configurarPais(Jugador jugador)
     {
         System.out.println("Configuracion del Pais del Jugador");
+        System.out.print("Ingresa el nuevo pais del Jugador: ");
         String nuevoPais = sc.nextLine();
         jugador.setPais(nuevoPais);
         System.out.println("Cambio del Pais realizado.");

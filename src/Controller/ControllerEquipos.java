@@ -32,6 +32,8 @@ public class ControllerEquipos
         ControllerTecnicos contTecnico = new ControllerTecnicos();
         List<Jugador> plantilla = null;
         String nombreEquipo = null;
+        ControllerJugadores jugador = new ControllerJugadores();
+        Equipo equipo = null;
 
         System.out.println("Ahora ingresa los siguientes datos sobre el Equipo: ");
         System.out.print("Ingresa el numero de identifiacion del Equipo: ");
@@ -42,9 +44,16 @@ public class ControllerEquipos
         {
             tecnicoEquipo = contTecnico.createTecnico();
         }
+        System.out.println("\nAhora vamos a registrar la plantilla: ");
+        System.out.println("Recuerda que son un maximo de 10 Jugadores.");
+        for (int i = 0; i < 9; i++)
+        {
+            System.out.println("Jugador #" + (i+1));
+            plantilla.add(jugador.crearJugador());
+        }
 
+        equipo = new Equipo(idEquipo, nombreEquipo, plantilla, tecnicoEquipo);
 
-
-        return null;
+        return equipo;
     }
 }

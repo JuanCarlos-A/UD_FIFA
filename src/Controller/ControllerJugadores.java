@@ -3,16 +3,17 @@ package Controller;
 // Seccion - Importaciones
 import Model.Jugador;
 import Model.Posicion;
-import java.util.Scanner;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerJugadores
 {
     // Seccion - Atributos
     String fileName = "src/DataBase/jugadores.csv";
+    String encabezado = "idPersona;nombre;pais;fechaNacimiento;idJugador;posicion;dorsal";
     ControllerFile contFile = new ControllerFile(fileName);
     Jugador jugador;
-    Scanner sc = new Scanner(System.in);
 
     // Seccion - Constructor
     public ControllerJugadores(){}
@@ -21,48 +22,152 @@ public class ControllerJugadores
     public void createFileJugador()
     {
         contFile.createFile();
+        if (contFile.readAllLines().isEmpty())
+        {
+            contFile.writeAllLines(List.of(encabezado));
+        }
     }
 
+    // ---- Persistencia (CSV) ----
+    public List<Jugador> cargarJugadores()
+    {
+        List<Jugador> lista = new ArrayList<>();
+        for (String linea : contFile.readAllLines())
+        {
+            if (linea.isBlank() || linea.startsWith("idPersona;"))
+            {
+                continue;
+            }
+            try
+            {
+                String[] d = linea.split(";", -1);
+                lista.add(new Jugador(d[0], d[1], d[2], LocalDate.parse(d[3]), d[4], Posicion.valueOf(d[5]), Integer.parseInt(d[6])));
+            }
+            catch (RuntimeException e)
+            {
+                System.out.println("Linea ignorada en " + fileName + " (formato invalido): " + linea);
+            }
+        }
+        return lista;
+    }
+
+    // Inserta el jugador, o lo reemplaza si ya existe uno con el mismo idJugador
+    public void guardarJugador(Jugador j)
+    {
+        List<Jugador> lista = cargarJugadores();
+        boolean reemplazado = false;
+        for (int i = 0; i < lista.size(); i++)
+        {
+            if (lista.get(i).getIdJugador().equals(j.getIdJugador()))
+            {
+                lista.set(i, j);
+                reemplazado = true;
+                break;
+            }
+        }
+        if (!reemplazado)
+        {
+            lista.add(j);
+        }
+
+        List<String> lineas = new ArrayList<>();
+        lineas.add(encabezado);
+        for (Jugador x : lista)
+        {
+            lineas.add(String.join(";", x.getIdPersona(), x.getNombre(), x.getPais(), x.getFechaNacimiento().toString(),
+                    x.getIdJugador(), x.getPosicion().name(), String.valueOf(x.getDorsal())));
+        }
+        contFile.writeAllLines(lineas);
+    }
+
+    public Jugador buscarPorId(String idJugador)
+    {
+        for (Jugador j : cargarJugadores())
+        {
+            if (j.getIdJugador().equals(idJugador))
+            {
+                return j;
+            }
+        }
+        return null;
+    }
+
+    // Deja elegir un jugador ya guardado por su id, o crear uno nuevo (ENTER)
+    public Jugador seleccionarJugador()
+    {
+        List<Jugador> guardados = cargarJugadores();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay jugadores guardados. Vamos a crear uno.");
+            return crearJugador();
+        }
+        System.out.println("Jugadores guardados: ");
+        for (Jugador j : guardados)
+        {
+            System.out.println(" - " + j.getIdJugador() + " : " + j.getNombre());
+        }
+        while (true)
+        {
+            System.out.print("Ingresa el id del Jugador (o presiona ENTER para crear uno nuevo): ");
+            String id = Entrada.leerTexto();
+            if (id.isEmpty())
+            {
+                return crearJugador();
+            }
+            Jugador encontrado = buscarPorId(id);
+            if (encontrado != null)
+            {
+                jugador = encontrado;
+                return encontrado;
+            }
+            System.out.println("No existe un Jugador con ese id.");
+        }
+    }
+
+    // ---- Funcionalidades ----
     public Jugador crearJugador()
     {
-        // Seccion - objetos
-        String idPersona = null;
-        String nombre = null;
-        String pais = null;
-        LocalDate fechaNacimiento = null;
-        int dia,mes,ano = 0;
-        String idJugador = null;
-        Posicion posicion = null;
-        int dorsal = 0;
-
-
         System.out.println("Ahora ingresa los siguientes datos de los jugadores siguiendo las instrucciones: ");
         System.out.print("Ingresa el numero de identificacion como persona del jugador: ");
-        idPersona = sc.nextLine();
+        String idPersona = Entrada.leerTexto();
         System.out.print("\nIngresa el nombre del Jugador: ");
-        nombre = sc.nextLine();
+        String nombre = Entrada.leerTexto();
         System.out.print("\nIngrese el pais de origen del jugador " + nombre + " : ");
-        pais = sc.nextLine();
-        System.out.print("\nIngresa el numero del dia de nacimiento del Jugador: ");
-        dia = sc.nextInt();
-        System.out.print("\nIngresa el numero del mes de nacimiento del Jugador: ");
-        mes = sc.nextInt();
-        System.out.print("\nIngrese el año de nacimiento del Jugador: ");
-        ano = sc.nextInt();
-        fechaNacimiento = LocalDate.of(ano, mes, dia);
-        System.out.print("\nIngresa el id del Jugador: ");
-        idJugador = sc.next();
+        String pais = Entrada.leerTexto();
+        LocalDate fechaNacimiento = Entrada.leerFecha("Jugador");
+        String idJugador = pedirIdJugador();
         System.out.print("\nIngresa la posicion que juega el Jugador: ");
-        posicion = elegirPosicion(sc);
+        Posicion posicion = elegirPosicion();
         System.out.print("\nIngresa el dorsal del jugador: ");
-        dorsal = sc.nextInt();
-        sc.nextLine();
+        int dorsal = Entrada.leerEntero();
 
         jugador = new Jugador(idPersona, nombre, pais, fechaNacimiento, idJugador, posicion, dorsal);
+        guardarJugador(jugador);
 
-        System.out.println("\nJugador creado con exito.");
+        System.out.println("\nJugador creado con exito y guardado en " + fileName);
 
         return jugador;
+    }
+
+    private String pedirIdJugador()
+    {
+        while (true)
+        {
+            System.out.print("\nIngresa el id del Jugador: ");
+            String id = Entrada.leerTexto();
+            if (id.isEmpty())
+            {
+                System.out.println("El id no puede estar vacio.");
+            }
+            else if (buscarPorId(id) != null)
+            {
+                System.out.println("Ya existe un Jugador con ese id.");
+            }
+            else
+            {
+                return id;
+            }
+        }
     }
 
     public void mostrarDatosJugador(Jugador jugador)
@@ -81,27 +186,28 @@ public class ControllerJugadores
     {
         System.out.println("Configuracion del Dorsal");
         System.out.print(" - Ingresa el Dorsal del jugador: ");
-        int nuevoDorsal = sc.nextInt();
+        int nuevoDorsal = Entrada.leerEntero();
         jugador.setDorsal(nuevoDorsal);
+        guardarJugador(jugador);
         System.out.println("Cambio del Dorsal realizado. ");
-
     }
 
     public void configurarPosicion(Jugador jugador)
     {
         System.out.println("Configuracion de la Posicion");
-        Posicion nuevaPosicion = elegirPosicion(sc);
+        Posicion nuevaPosicion = elegirPosicion();
         jugador.setPosicion(nuevaPosicion);
+        guardarJugador(jugador);
         System.out.println("Cambio de la Posicion realizada.");
-
     }
 
     public void configurarNombre(Jugador jugador)
     {
         System.out.println("Configuracion del Nombre del Jugador");
         System.out.print("Ingresa el nuevo nombre del Jugador: ");
-        String nuevoNombre = sc.nextLine();
+        String nuevoNombre = Entrada.leerTexto();
         jugador.setNombre(nuevoNombre);
+        guardarJugador(jugador);
         System.out.println("Cambio del Nombre realizado.");
     }
 
@@ -109,54 +215,44 @@ public class ControllerJugadores
     {
         System.out.println("Configuracion del Pais del Jugador");
         System.out.print("Ingresa el nuevo pais del Jugador: ");
-        String nuevoPais = sc.nextLine();
+        String nuevoPais = Entrada.leerTexto();
         jugador.setPais(nuevoPais);
+        guardarJugador(jugador);
         System.out.println("Cambio del Pais realizado.");
     }
 
     public void configurarFechaNacimiento(Jugador jugador)
     {
-        int dia = 0;
-        int mes = 0;
-        int ano = 0;
-        LocalDate fechaNacimiento = null;
-
         System.out.println("Configuracion de la Fecha de Nacimiento del Jugador");
-        System.out.print("\nIngresa el numero del dia de nacimiento del Jugador: ");
-        dia = sc.nextInt();
-        System.out.print("\nIngresa el numero del mes de nacimiento del Jugador: ");
-        mes = sc.nextInt();
-        System.out.print("\nIngrese el año de nacimiento del Jugador: ");
-        ano = sc.nextInt();
-        fechaNacimiento = LocalDate.of(ano, mes, dia);
+        LocalDate fechaNacimiento = Entrada.leerFecha("Jugador");
         jugador.setFechaNacimiento(fechaNacimiento);
+        guardarJugador(jugador);
         System.out.println("Cambio de la fecha de nacimiento realizado.");
-
     }
 
-    static Posicion elegirPosicion(Scanner sc)
+    static Posicion elegirPosicion()
     {
         Posicion[] posiciones = Posicion.values();
-        while(true)
+        while (true)
         {
             System.out.println("Elige el tipo de jugador: ");
             for (int i = 0; i < posiciones.length; i++)
             {
-                System.out.println((i+1) + ". " + posiciones[i].name());
+                System.out.println((i + 1) + ". " + posiciones[i].name());
             }
             System.out.print("\nOpcion: ");
 
-            if (sc.hasNextInt())
+            try
             {
-                int opcion = sc.nextInt();
-                sc.nextLine();
+                int opcion = Integer.parseInt(Entrada.leerLinea().trim());
                 if (opcion >= 1 && opcion <= posiciones.length)
                 {
                     return posiciones[opcion - 1];
                 }
-            } else
+            }
+            catch (NumberFormatException e)
             {
-                sc.nextLine();
+                // cae al mensaje de opcion invalida
             }
             System.out.println("\nOpcion Invalida: Intente de nuevo. ");
         }

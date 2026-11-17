@@ -53,7 +53,7 @@ public class ControllerJugadores
         System.out.print("\nIngresa el id del Jugador: ");
         idJugador = sc.nextLine();
         System.out.print("\nIngresa la posicion que juega el Jugador: ");
-        posicion = jugador.elegirPosicion(sc);
+        posicion = elegirPosicion(sc);
         System.out.print("\nIngresa el dorsal del jugador: ");
         dorsal = sc.nextInt();
         sc.nextLine();
@@ -90,7 +90,7 @@ public class ControllerJugadores
     public void configurarPosicion(Jugador jugador)
     {
         System.out.println("Configuracion de la Posicion");
-        Posicion nuevaPosicion = jugador.elegirPosicion(sc);
+        Posicion nuevaPosicion = elegirPosicion(sc);
         jugador.setPosicion(nuevaPosicion);
         System.out.println("Cambio de la Posicion realizada.");
 
@@ -130,5 +130,33 @@ public class ControllerJugadores
         jugador.setFechaNacimiento(fechaNacimiento);
         System.out.println("Cambio de la fecha de nacimiento realizado.");
 
+    }
+
+    static Posicion elegirPosicion(Scanner sc)
+    {
+        Posicion[] posiciones = Posicion.values();
+        while(true)
+        {
+            System.out.println("Elige el tipo de jugador: ");
+            for (int i = 0; i < posiciones.length; i++)
+            {
+                System.out.println((i+1) + ". " + posiciones[i].name());
+            }
+            System.out.print("\nOpcion: ");
+
+            if (sc.hasNextInt())
+            {
+                int opcion = sc.nextInt();
+                sc.nextLine();
+                if (opcion >= 1 && opcion <= posiciones.length)
+                {
+                    return posiciones[opcion - 1];
+                }
+            } else
+            {
+                sc.nextLine();
+            }
+            System.out.println("\nOpcion Invalida: Intente de nuevo. ");
+        }
     }
 }

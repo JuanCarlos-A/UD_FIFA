@@ -52,6 +52,9 @@ public class Main {
                                 contJugador.configurarFechaNacimiento();
                                 break;
                             case 9:
+                                contJugador.eliminarJugador();
+                                break;
+                            case 10:
                                 condi = false;
                                 break;
                             default:
@@ -86,6 +89,9 @@ public class Main {
                                 contTecnico.configurarFechaNacimiento();
                                 break;
                             case 7:
+                                contTecnico.eliminarTecnico();
+                                break;
+                            case 8:
                                 condi = false;
                                 break;
                             default:
@@ -123,6 +129,15 @@ public class Main {
                                 contEquipo.cambiarJugadorPlantilla();
                                 break;
                             case 8:
+                                contEquipo.agregarJugadorAEquipo();
+                                break;
+                            case 9:
+                                contEquipo.quitarJugadorDeEquipo();
+                                break;
+                            case 10:
+                                contEquipo.eliminarEquipo();
+                                break;
+                            case 11:
                                 condi = false;
                                 break;
                             default:
@@ -169,7 +184,8 @@ public class Main {
         System.out.println("    6- Configurar el nombre de un Jugador");
         System.out.println("    7- Configurar el pais de un Jugador");
         System.out.println("    8- Configurar la fecha de nacimiento de un Jugador");
-        System.out.println("    9- Salir menu Jugadores");
+        System.out.println("    9- Eliminar un Jugador");
+        System.out.println("    10- Salir menu Jugadores");
         System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
         int opc = Entrada.leerEntero();
 
@@ -186,7 +202,8 @@ public class Main {
         System.out.println("    4- Configurar el nombre del club de un Tecnico");
         System.out.println("    5- Configurar el pais de un Tecnico");
         System.out.println("    6- Configurar la fecha de nacimiento de un Tecnico");
-        System.out.println("    7- Salir menu Tecnicos");
+        System.out.println("    7- Eliminar un Tecnico");
+        System.out.println("    8- Salir menu Tecnicos");
         System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
         int opc = Entrada.leerEntero();
 
@@ -204,7 +221,10 @@ public class Main {
         System.out.println("    5- Configurar el nombre de un Equipo");
         System.out.println("    6- Configurar el tecnico de un Equipo");
         System.out.println("    7- Cambiar un Jugador de un Equipo");
-        System.out.println("    8- Salir menu Equipos");
+        System.out.println("    8- Agregar un Jugador registrado a un Equipo");
+        System.out.println("    9- Quitar un Jugador de un Equipo");
+        System.out.println("    10- Eliminar un Equipo");
+        System.out.println("    11- Salir menu Equipos");
         System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
         int opc = Entrada.leerEntero();
 

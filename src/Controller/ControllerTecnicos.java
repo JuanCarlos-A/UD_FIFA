@@ -68,5 +68,13 @@ public class ControllerTecnicos
         System.out.println(" - Edad del Tecnico: " + tecnico.getEdad());
         System.out.println(" - Pais del Tecnico: " + tecnico.getPais());
     }
+
+    public void configurarNombreClub(Tecnico tecnico)
+    {
+        System.out.println("Configuración del Nombre del Club");
+        String nuevoNombreClub = sc.nextLine();
+        tecnico.setNombreClub(nuevoNombreClub);
+        System.out.println("Cambio de Nombre realizado.");
+    }
 }
 

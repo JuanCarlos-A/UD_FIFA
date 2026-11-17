@@ -119,7 +119,7 @@ public class ControllerEquipos
         System.out.println("Ingresa el numero en la lista del Jugador que bas a cambiar: ");
         int id = sc.nextInt();
         Jugador jugador = contJugador.crearJugador();
-        equipo.setNewJugadorPlantilla(id, jugador);
+        equipo.setNewJugadorPlantilla(id - 1, jugador);
         System.out.println("Cambio realizado.");
     }
 }

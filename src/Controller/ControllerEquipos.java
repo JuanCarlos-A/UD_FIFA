@@ -79,6 +79,7 @@ public class ControllerEquipos
 
         System.out.print("Ingresa el numero en la lista donde se ubica el Jugador: ");
         int idListaJugador = sc.nextInt();
+        System.out.println("\n");
         Jugador jugador = equipo.getJugadorPlantilla(idListaJugador);
         conJugador.mostrarDatosJugador(jugador);
 

@@ -14,4 +14,7 @@ public class ControllerEquipos
     ControllerFile contFile = new ControllerFile(fileName);
     Equipo equipo;
     Scanner sc = new Scanner(System.in);
+
+    // Seccion - Metodo Constructor
+    public ControllerEquipos(){}
 }

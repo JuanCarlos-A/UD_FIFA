@@ -92,36 +92,86 @@ public class ControllerJugadores
         return null;
     }
 
-    // Deja elegir un jugador ya guardado por su id, o crear uno nuevo (ENTER)
+    // Lista numerada de los jugadores registrados; devuelve el elegido o null si no hay / se cancela (0)
+    public Jugador elegirJugador()
+    {
+        List<Jugador> guardados = cargarJugadores();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay jugadores registrados.");
+            return null;
+        }
+        imprimirLista(guardados);
+        while (true)
+        {
+            System.out.print("Ingresa el numero del Jugador (0 para cancelar): ");
+            int opcion = Entrada.leerEntero();
+            if (opcion == 0)
+            {
+                return null;
+            }
+            if (opcion >= 1 && opcion <= guardados.size())
+            {
+                jugador = guardados.get(opcion - 1);
+                return jugador;
+            }
+            System.out.println("Opcion invalida.");
+        }
+    }
+
+    // Igual que elegirJugador, pero con la opcion 0 para crear un jugador nuevo (se usa al armar equipos)
     public Jugador seleccionarJugador()
     {
         List<Jugador> guardados = cargarJugadores();
         if (guardados.isEmpty())
         {
-            System.out.println("No hay jugadores guardados. Vamos a crear uno.");
+            System.out.println("No hay jugadores registrados. Vamos a crear uno.");
             return crearJugador();
         }
-        System.out.println("Jugadores guardados: ");
-        for (Jugador j : guardados)
-        {
-            System.out.println(" - " + j.getIdJugador() + " : " + j.getNombre());
-        }
+        imprimirLista(guardados);
         while (true)
         {
-            System.out.print("Ingresa el id del Jugador (o presiona ENTER para crear uno nuevo): ");
-            String id = Entrada.leerTexto();
-            if (id.isEmpty())
+            System.out.print("Ingresa el numero del Jugador (0 para crear uno nuevo): ");
+            int opcion = Entrada.leerEntero();
+            if (opcion == 0)
             {
                 return crearJugador();
             }
-            Jugador encontrado = buscarPorId(id);
-            if (encontrado != null)
+            if (opcion >= 1 && opcion <= guardados.size())
             {
-                jugador = encontrado;
-                return encontrado;
+                jugador = guardados.get(opcion - 1);
+                return jugador;
             }
-            System.out.println("No existe un Jugador con ese id.");
+            System.out.println("Opcion invalida.");
         }
+    }
+
+    private void imprimirLista(List<Jugador> lista)
+    {
+        System.out.println("Jugadores registrados: ");
+        for (int i = 0; i < lista.size(); i++)
+        {
+            Jugador j = lista.get(i);
+            System.out.println(" " + (i + 1) + "- " + j.getNombre() + " (id " + j.getIdJugador() + ")");
+        }
+    }
+
+    // Muestra los datos de todos los jugadores registrados en el CSV
+    public void mostrarJugadores()
+    {
+        List<Jugador> guardados = cargarJugadores();
+        if (guardados.isEmpty())
+        {
+            System.out.println("No hay jugadores registrados.");
+            return;
+        }
+        System.out.println("Jugadores registrados: " + guardados.size());
+        for (Jugador j : guardados)
+        {
+            System.out.println("------------------------------");
+            mostrarDatosJugador(j);
+        }
+        System.out.println("------------------------------");
     }
 
     // ---- Funcionalidades ----
@@ -182,8 +232,13 @@ public class ControllerJugadores
         System.out.println(" - Numero de Identificacion del Jugador como Persona: " + jugador.getIdPersona());
     }
 
-    public void configurarDorsal(Jugador jugador)
+    public void configurarDorsal()
     {
+        Jugador jugador = elegirJugador();
+        if (jugador == null)
+        {
+            return;
+        }
         System.out.println("Configuracion del Dorsal");
         System.out.print(" - Ingresa el Dorsal del jugador: ");
         int nuevoDorsal = Entrada.leerEntero();
@@ -192,8 +247,13 @@ public class ControllerJugadores
         System.out.println("Cambio del Dorsal realizado. ");
     }
 
-    public void configurarPosicion(Jugador jugador)
+    public void configurarPosicion()
     {
+        Jugador jugador = elegirJugador();
+        if (jugador == null)
+        {
+            return;
+        }
         System.out.println("Configuracion de la Posicion");
         Posicion nuevaPosicion = elegirPosicion();
         jugador.setPosicion(nuevaPosicion);
@@ -201,8 +261,13 @@ public class ControllerJugadores
         System.out.println("Cambio de la Posicion realizada.");
     }
 
-    public void configurarNombre(Jugador jugador)
+    public void configurarNombre()
     {
+        Jugador jugador = elegirJugador();
+        if (jugador == null)
+        {
+            return;
+        }
         System.out.println("Configuracion del Nombre del Jugador");
         System.out.print("Ingresa el nuevo nombre del Jugador: ");
         String nuevoNombre = Entrada.leerTexto();
@@ -211,8 +276,13 @@ public class ControllerJugadores
         System.out.println("Cambio del Nombre realizado.");
     }
 
-    public void configurarPais(Jugador jugador)
+    public void configurarPais()
     {
+        Jugador jugador = elegirJugador();
+        if (jugador == null)
+        {
+            return;
+        }
         System.out.println("Configuracion del Pais del Jugador");
         System.out.print("Ingresa el nuevo pais del Jugador: ");
         String nuevoPais = Entrada.leerTexto();
@@ -221,8 +291,13 @@ public class ControllerJugadores
         System.out.println("Cambio del Pais realizado.");
     }
 
-    public void configurarFechaNacimiento(Jugador jugador)
+    public void configurarFechaNacimiento()
     {
+        Jugador jugador = elegirJugador();
+        if (jugador == null)
+        {
+            return;
+        }
         System.out.println("Configuracion de la Fecha de Nacimiento del Jugador");
         LocalDate fechaNacimiento = Entrada.leerFecha("Jugador");
         jugador.setFechaNacimiento(fechaNacimiento);

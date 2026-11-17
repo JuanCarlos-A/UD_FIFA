@@ -74,6 +74,7 @@ public class ControllerJugadores
         System.out.println(" - Numero de Identificacion del Jugador: " + jugador.getIdJugador());
         System.out.println(" - Edad del Jugador: " + jugador.getEdad());
         System.out.println(" - Pais del Jugador: " + jugador.getPais());
+        System.out.println(" - Numero de Identificacion del Jugador como Persona: " + jugador.getIdPersona());
     }
 
     public void configurarDorsal(Jugador jugador)

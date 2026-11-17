@@ -32,7 +32,7 @@ public class ControllerEquipos
         // Seccion - Objetos
         String idEquipo = null;
         ControllerTecnicos contTecnico = new ControllerTecnicos();
-        List<Jugador> plantilla = null;
+        List<Jugador> plantilla = new ArrayList<>();
         String nombreEquipo = null;
         ControllerJugadores jugador = new ControllerJugadores();
         Equipo equipo = null;

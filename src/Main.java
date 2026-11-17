@@ -164,41 +164,56 @@ public class Main {
 
                                 break;
                             case 3:
-                                if (equipo == null || tecnico == null)
+                                if (tecnico == null)
                                 {
                                     tecnico = contTecnico.createTecnico();
+                                }
+                                if (equipo == null)
+                                {
                                     equipo = contEquipo.createEquipo(tecnico);
                                 }
                                 contEquipo.mostrarDatosEquipo(equipo);
                                 break;
                             case 4:
-                                if (equipo == null || tecnico == null)
+                                if (tecnico == null)
                                 {
                                     tecnico = contTecnico.createTecnico();
+                                }
+                                if (equipo == null)
+                                {
                                     equipo = contEquipo.createEquipo(tecnico);
                                 }
                                 contEquipo.mostrarJugadorPlantilla(equipo);
                                 break;
                             case 5:
-                                if (equipo == null || tecnico == null)
+                                if (tecnico == null)
                                 {
                                     tecnico = contTecnico.createTecnico();
+                                }
+                                if (equipo == null)
+                                {
                                     equipo = contEquipo.createEquipo(tecnico);
                                 }
                                 contEquipo.configurarNombreEquipo(equipo);
                                 break;
                             case 6:
-                                if (equipo == null || tecnico == null)
+                                if (tecnico == null)
                                 {
                                     tecnico = contTecnico.createTecnico();
+                                }
+                                if (equipo == null)
+                                {
                                     equipo = contEquipo.createEquipo(tecnico);
                                 }
                                 contEquipo.configurarTecnico(equipo);
                                 break;
                             case 7:
-                                if (equipo == null || tecnico == null)
+                                if (tecnico == null)
                                 {
                                     tecnico = contTecnico.createTecnico();
+                                }
+                                if (equipo == null)
+                                {
                                     equipo = contEquipo.createEquipo(tecnico);
                                 }
                                 contEquipo.cambiarJugadorPlantilla(equipo);

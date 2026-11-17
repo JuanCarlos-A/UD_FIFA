@@ -51,7 +51,7 @@ public class ControllerJugadores
         ano = sc.nextInt();
         fechaNacimiento = LocalDate.of(ano, mes, dia);
         System.out.print("\nIngresa el id del Jugador: ");
-        idJugador = sc.nextLine();
+        idJugador = sc.next();
         System.out.print("\nIngresa la posicion que juega el Jugador: ");
         posicion = elegirPosicion(sc);
         System.out.print("\nIngresa el dorsal del jugador: ");

@@ -48,7 +48,7 @@ public class ControllerTecnicos
         ano = sc.nextInt();
         fechaNacimiento = LocalDate.of(ano, mes, dia);
         System.out.print("\nIngresa el id del Tecnico: ");
-        idTecnico = sc.nextLine();
+        idTecnico = sc.next();
         System.out.print("\nIngresa el nombre del club: ");
         nombreClub = sc.nextLine();
 

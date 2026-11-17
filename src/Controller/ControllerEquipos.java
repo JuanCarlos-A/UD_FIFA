@@ -39,9 +39,9 @@ public class ControllerEquipos
 
         System.out.println("Ahora ingresa los siguientes datos sobre el Equipo: ");
         System.out.print("Ingresa el numero de identifiacion del Equipo: ");
-        idEquipo = sc.nextLine();
+        idEquipo = sc.next();
         System.out.print("\nIngresa el nombre del Equipo: ");
-        nombreEquipo = sc.nextLine();
+        nombreEquipo = sc.next();
         if (tecnicoEquipo == null)
         {
             tecnicoEquipo = contTecnico.createTecnico();

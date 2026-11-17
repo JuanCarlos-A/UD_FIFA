@@ -1,6 +1,8 @@
 // Seccion - Importaciones
 import Controller.*;
+import Model.Equipo;
 import Model.Jugador;
+import Model.Tecnico;
 
 import java.util.Scanner;
 
@@ -16,6 +18,8 @@ public class Main {
         ControllerTecnicos contTecnico = new ControllerTecnicos();
         ControllerEquipos contEquipo = new ControllerEquipos();
         Jugador jugador = null;
+        Tecnico tecnico = null;
+        Equipo equipo = null;
         boolean condition = true;
 
         while (condition)
@@ -90,7 +94,55 @@ public class Main {
                     }
                     break;
 
-
+                case 2:
+                    while (condi)
+                    {
+                        // Menu Jugadores
+                        int opc = menuTecnico();
+                        switch (opc)
+                        {
+                            case 1:
+                                contTecnico.createFileTecnico();
+                                break;
+                            case 2:
+                                tecnico = contTecnico.createTecnico();
+                                break;
+                            case 3:
+                                if (tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                }
+                                contTecnico.mostrarDatosTecnico(tecnico);
+                                break;
+                            case 4:
+                                if (tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                }
+                                contTecnico.configurarNombreClub(tecnico);
+                                break;
+                            case 5:
+                                if (tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                }
+                                contTecnico.configurarPais(tecnico);
+                                break;
+                            case 6:
+                                if (tecnico == null)
+                                {
+                                    tecnico = contTecnico.createTecnico();
+                                }
+                                contTecnico.configurarFechaNacimiento(tecnico);
+                                break;
+                            case 7:
+                                condi = false;
+                                break;
+                            default:
+                                System.out.println("Opcion Invalida");
+                        }
+                    }
+                    break;
 
                 case 4:
                     condition = false;
@@ -131,6 +183,23 @@ public class Main {
         System.out.println("    7- Configurar el pais del Jugador");
         System.out.println("    8- Configurar la fecha de nacimiento del Jugador");
         System.out.println("    9- Salir menu Jugadores");
+        System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
+        int opc = sc.nextInt();
+
+        return opc;
+    }
+
+    public static int menuTecnico()
+    {
+        System.out.println("------------------ Menu FIFA (Tecnicos) -----------------------");
+        System.out.println(" ¿Que vas a hacer?");
+        System.out.println("    1- Crear Archivo donde se Almacenan datos (Si no estas seguro de que ya exista)");
+        System.out.println("    2- Crear un Tecnico");
+        System.out.println("    3- Mostrar datos del Tecnico");
+        System.out.println("    4- Configurar el nombre del club del Tecnico");
+        System.out.println("    5- Configurar el pais del Tecnico");
+        System.out.println("    6- Configurar la fecha de nacimiento del Tecnico");
+        System.out.println("    7- Salir menu Tecnicos");
         System.out.print("\n Ingresa la opcion (ingresa el numero de la opcion): ");
         int opc = sc.nextInt();
 

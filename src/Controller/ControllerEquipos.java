@@ -84,4 +84,13 @@ public class ControllerEquipos
         conJugador.mostrarDatosJugador(jugador);
 
     }
+
+    public void configurarNombreEquipo(Equipo equipo)
+    {
+        System.out.print("Ingresa el nombre del equipo: ");
+        String nuevoNombre = sc.nextLine();
+        equipo.setNombreEquipo(nuevoNombre);
+        System.out.println("\nNombre actualizado.");
+
+    }
 }

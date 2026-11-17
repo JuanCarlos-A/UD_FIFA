@@ -2,7 +2,7 @@ package Controller;
 
 // Seccion - Importaciones
 import Model.Equipo;
-
+import Model.Tecnico;
 import  java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,5 +22,12 @@ public class ControllerEquipos
     public void createFileEquipos()
     {
         contFile.createFile();
+    }
+
+    public Equipo createEquipo()
+    {
+        String idEquipo;
+        Tecnico tecnicoEquipo;
+        return null;
     }
 }

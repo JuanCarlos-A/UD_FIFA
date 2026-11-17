@@ -5,7 +5,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-// Un unico Scanner compartido por todo el programa (evita que varios Scanner sobre System.in se "roben" lineas)
+
 public class Entrada
 {
     // Seccion - Atributos
